@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Segmented View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SegmentedView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SegmentedViewController" customModule="SegmentedView" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -24,38 +24,43 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBK-f2-tmF">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="100"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="center" distribution="equalCentering" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="j2n-zf-9Z5">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="j2n-zf-9Z5">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="100"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8O0-NN-6jG">
-                                                <rect key="frame" x="0.0" y="0.0" width="42" height="100"/>
-                                                <color key="backgroundColor" red="1" green="0.0920402163667835" blue="0.098440117092734036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8O0-NN-6jG">
+                                                <rect key="frame" x="0.0" y="0.0" width="4.5" height="100"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ArG-PG-RMW">
+                                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ArG-PG-RMW">
                                                 <rect key="frame" x="45" y="0.0" width="934" height="100"/>
-                                                <color key="backgroundColor" red="0.35465025808908845" green="1" blue="0.19840802771456401" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48Z-J3-wYg">
-                                                <rect key="frame" x="982" y="0.0" width="42" height="100"/>
-                                                <color key="backgroundColor" red="0.16234126245028979" green="0.20978077825596919" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48Z-J3-wYg">
+                                                <rect key="frame" x="1020" y="0.0" width="4" height="100"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="ArG-PG-RMW" firstAttribute="centerX" secondItem="j2n-zf-9Z5" secondAttribute="centerX" id="GqC-fD-hKm"/>
+                                            <constraint firstItem="48Z-J3-wYg" firstAttribute="leading" secondItem="ArG-PG-RMW" secondAttribute="trailing" constant="41" id="JrP-QG-Ij4"/>
+                                            <constraint firstItem="ArG-PG-RMW" firstAttribute="leading" secondItem="j2n-zf-9Z5" secondAttribute="leading" constant="45" id="h7K-Vv-2zF"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="j2n-zf-9Z5" secondAttribute="bottom" id="J5i-RW-6wD"/>
+                                    <constraint firstAttribute="trailing" secondItem="j2n-zf-9Z5" secondAttribute="trailing" id="E0I-2T-hhw"/>
+                                    <constraint firstItem="j2n-zf-9Z5" firstAttribute="top" secondItem="rBK-f2-tmF" secondAttribute="top" id="Nea-5l-ylk"/>
                                     <constraint firstItem="j2n-zf-9Z5" firstAttribute="centerX" secondItem="rBK-f2-tmF" secondAttribute="centerX" priority="750" id="UW6-ax-UTv"/>
+                                    <constraint firstItem="j2n-zf-9Z5" firstAttribute="leading" secondItem="rBK-f2-tmF" secondAttribute="leading" id="UaT-GB-Fvn"/>
                                     <constraint firstAttribute="height" constant="100" id="Wd1-lj-z8L"/>
-                                    <constraint firstItem="j2n-zf-9Z5" firstAttribute="leading" secondItem="rBK-f2-tmF" secondAttribute="leading" id="aQ1-IO-GVG"/>
+                                    <constraint firstAttribute="bottom" secondItem="j2n-zf-9Z5" secondAttribute="bottom" id="nqe-QB-lYU"/>
                                     <constraint firstItem="j2n-zf-9Z5" firstAttribute="centerY" secondItem="rBK-f2-tmF" secondAttribute="centerY" priority="750" id="qBF-ca-X9C"/>
-                                    <constraint firstAttribute="trailing" secondItem="j2n-zf-9Z5" secondAttribute="trailing" id="uQw-Mf-ezG"/>
-                                    <constraint firstItem="j2n-zf-9Z5" firstAttribute="top" secondItem="rBK-f2-tmF" secondAttribute="top" id="vmE-lc-fWL"/>
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s1X-hT-n9T">
@@ -68,13 +73,14 @@
                             <constraint firstItem="rBK-f2-tmF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="190-qy-t5E"/>
                             <constraint firstItem="rBK-f2-tmF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1BV-J1-YNu"/>
                             <constraint firstAttribute="trailing" secondItem="rBK-f2-tmF" secondAttribute="trailing" id="66M-KB-9w3"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s1X-hT-n9T" secondAttribute="bottom" id="JI7-Cg-yC7"/>
                             <constraint firstItem="s1X-hT-n9T" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WkX-Zd-gcC"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s1X-hT-n9T" secondAttribute="bottom" id="YSC-86-h7t"/>
                             <constraint firstAttribute="trailing" secondItem="s1X-hT-n9T" secondAttribute="trailing" id="mvA-8W-2Za"/>
                             <constraint firstItem="s1X-hT-n9T" firstAttribute="top" secondItem="rBK-f2-tmF" secondAttribute="bottom" id="wUY-Gt-2oK"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="heightConstraint" destination="Wd1-lj-z8L" id="riH-BV-lwU"/>
                         <outlet property="mainStackView" destination="j2n-zf-9Z5" id="Kia-dL-r8A"/>
                         <outlet property="pageContainerView" destination="s1X-hT-n9T" id="YQs-wq-LHb"/>
                         <outlet property="tempView" destination="8O0-NN-6jG" id="gZc-f5-cKj"/>
