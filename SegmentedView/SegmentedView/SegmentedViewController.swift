@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SegmentedViewController: UIViewController {
 
-//    var titleArray = ["Alarm","Conversation","Event","Alarm","Conversation","Event","Alarm","Conversation","Event","Alarm","Conversation","Event"]
-    var titleArray = ["Alarm","Conversation","Event","Alarm"]
+    var titleArray = ["Alarm","Conversation","Event","Alarm","Conversation","Event","Alarm"]
+//    var titleArray = ["Alarm","Conversation","Event","Alarm"]
     var stackView = UIStackView.init()
     @IBOutlet weak var mainStackView: UIStackView!
     @IBOutlet weak var upperScroll: UIScrollView!
@@ -19,8 +19,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var tempView2: UIView!
     @IBOutlet weak var tempView1: UILabel!
     @IBOutlet weak var pageContainerView: UIView!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    
     var highLightView = UIView.init()
     var upperScrollPadding = 0
+    var segmentHeaderFont:UIFont = UIFont.systemFont(ofSize: 16)
     var upperScrollHeight = 60
     var pageVC:PageViewController = PageViewController()
     var viewControllerArray:[UIViewController] = []
@@ -28,6 +31,62 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        initThings()
+        
+        upperScroll.backgroundColor = UIColor.clear
+        upperScroll.showsHorizontalScrollIndicator = false
+        upperScroll.showsVerticalScrollIndicator = false
+        upperScroll.translatesAutoresizingMaskIntoConstraints = false
+
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10.0
+        stackView.backgroundColor = UIColor.red
+        tempView2.addSubview(stackView)
+        stackView.leadingAnchor.constraint(equalTo: tempView2.leadingAnchor, constant: 0).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: tempView2.trailingAnchor, constant: 0).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: tempView2.centerYAnchor, constant: 0).isActive = true
+    
+        for (i,titleText) in titleArray.enumerated(){
+            let button = UIButton.init()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.tag = i
+            button.setTitleColor(UIColor.darkGray, for: .normal)
+            button.setTitle(titleText, for: .normal)
+            button.setTitle(titleText, for: .application)
+            button.setTitle(titleText, for: .highlighted)
+            button.addTarget(self, action:#selector(handleRegister(sender:)), for: .touchUpInside)
+            button.backgroundColor = UIColor.clear
+            stackView.addArrangedSubview(button)
+        }
+        
+        var widthFloat:Int = 0
+        let fontAttributes = [NSFontAttributeName: segmentHeaderFont] // it says name, but a UIFont works
+        let myText = titleArray[0]
+        let size = (myText as NSString).size(attributes: fontAttributes)
+        widthFloat = Int(size.width)
+        
+        highLightView.backgroundColor = UIColor.darkGray
+        let frame:CGRect = stackView.arrangedSubviews[0].frame
+        self.highLightView.frame = CGRect(x: Int(frame.origin.x+5) , y:upperScrollHeight-5  , width: widthFloat , height: 5)
+        stackView.addSubview(highLightView)
+        
+        pageVC = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal , options: nil)
+        pageVC.view.translatesAutoresizingMaskIntoConstraints = false
+        pageVC.vcArray = viewControllerArray
+        pageVC.selectionDelegate = self
+        self.addChildViewController(pageVC)
+        self.view.addSubview(pageVC.view)
+        
+        pageVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        pageVC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        pageVC.view.topAnchor.constraint(equalTo: upperScroll.bottomAnchor).isActive = true
+        pageVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+    }
+    
+    func initThings(){
+        heightConstraint.constant = 80
         let view:UIViewController = UIViewController()
         view.view.backgroundColor = UIColor.red
         viewControllerArray.append(view)
@@ -49,51 +108,6 @@ class ViewController: UIViewController {
         let view5:UIViewController = UIViewController()
         view5.view.backgroundColor = UIColor.magenta
         viewControllerArray.append(view5)
-        
-        upperScroll.backgroundColor = UIColor.clear
-        upperScroll.showsHorizontalScrollIndicator = false
-        upperScroll.showsVerticalScrollIndicator = false
-        upperScroll.translatesAutoresizingMaskIntoConstraints = false
-
-        stackView.axis = .horizontal
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 10.0
-        stackView.backgroundColor = UIColor.red
-        tempView2.addSubview(stackView)
-        stackView.leadingAnchor.constraint(equalTo: tempView2.leadingAnchor, constant: 0).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: tempView2.trailingAnchor, constant: 0).isActive = true
-        stackView.centerYAnchor.constraint(equalTo: tempView2.centerYAnchor, constant: 0).isActive = true
-    
-        for (i,titleText) in titleArray.enumerated()
-        {
-            let button = UIButton.init()
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.tag = i
-            button.setTitle(titleText, for: .normal)
-            button.setTitle(titleText, for: .application)
-            button.setTitle(titleText, for: .highlighted)
-            button.addTarget(self, action:#selector(handleRegister(sender:)), for: .touchUpInside)
-            button.backgroundColor = UIColor.cyan
-            stackView.addArrangedSubview(button)
-        }
-        
-        highLightView.backgroundColor = UIColor.darkGray
-        let frame:CGRect = stackView.arrangedSubviews[0].frame
-        self.highLightView.frame = CGRect(x: frame.origin.x , y: frame.origin.y+(frame.size.height-5) , width: frame.size.width , height: 5)
-        stackView.addSubview(highLightView)
-        
-        pageVC = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal , options: nil)
-        pageVC.view.translatesAutoresizingMaskIntoConstraints = false
-        pageVC.vcArray = viewControllerArray
-        pageVC.selectionDelegate = self
-        self.addChildViewController(pageVC)
-        self.view.addSubview(pageVC.view)
-        
-        pageVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        pageVC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        pageVC.view.topAnchor.constraint(equalTo: upperScroll.bottomAnchor).isActive = true
-        pageVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        
     }
     
     func handleRegister(sender: UIButton) {
@@ -102,7 +116,7 @@ class ViewController: UIViewController {
         pageVC.buttonClickedat(index: sender.tag)
         
         UIView.animate(withDuration: 0.2, animations: {
-            self.highLightView.frame = CGRect(x: frame.origin.x , y: frame.origin.y+(frame.size.height-5) , width: frame.size.width , height: 5)
+            self.highLightView.frame = CGRect(x: frame.origin.x , y:CGFloat(self.upperScrollHeight-5) , width: frame.size.width , height: 5)
         })
     }
 
@@ -112,8 +126,7 @@ class ViewController: UIViewController {
     }
 }
 
-
-extension ViewController:selectionDelegate{
+extension SegmentedViewController:selectionDelegate{
     func dismissButtonClicked(index: Int) {
         
         let frame:CGRect = stackView.arrangedSubviews[index].frame
@@ -121,13 +134,13 @@ extension ViewController:selectionDelegate{
         
         if((frame.origin.x + frame.size.width) > self.view.bounds.size.width)
         {
-            self.upperScroll.contentOffset = CGPoint(x: (frame.origin.x+frame.size.width+20)-(self.view.bounds.size.width), y: self.upperScroll.contentOffset.y)
+            self.upperScroll.contentOffset = CGPoint(x: (frame.origin.x+frame.size.width+20)-(self.view.bounds.size.width-100), y: self.upperScroll.contentOffset.y)
         }
         else if(self.upperScroll.contentOffset.x > frame.origin.x ){
              self.upperScroll.contentOffset = CGPoint(x: frame.origin.x , y: self.upperScroll.contentOffset.y)
         }
        
-            self.highLightView.frame = CGRect(x: frame.origin.x , y: frame.origin.y+(frame.size.height-5) , width: frame.size.width , height: 5)
+            self.highLightView.frame = CGRect(x: frame.origin.x , y:CGFloat(self.upperScrollHeight-5) , width: frame.size.width , height: 5)
         })
     }
 }
